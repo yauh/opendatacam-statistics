@@ -39,7 +39,7 @@ odcCountsOnlyVehicles <- subset(odcCounts, objectClass == "bicycle" | objectClas
 countsByHour <- table(odcCountsOnlyVehicles$hourOfDay)
 barplot(countsByHour,
   names.arg=rownames(countsByHour),
-  xlab="Day of week",
+  xlab="Hour of Day",
   ylab="Count")
 
 # distinguish between object classes as well
