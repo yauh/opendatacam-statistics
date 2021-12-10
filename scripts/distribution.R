@@ -24,9 +24,11 @@ odcCounts <- mutate(odcCounts,
   month = month(timestamp),
   week = week(timestamp),
   quarter = quarter(timestamp),
-  hourOfDay = hour(ymdhms)
-)
+  hourOfDay = hour(ymdhms))
 
-# my first plot
-tbl <- with(odcCounts, table(objectClass, hourOfDay))
-barplot(tbl, beside= TRUE, legend=TRUE)
+# simple first plot
+countsByHour <- table(odcCounts$hourOfDay)
+barplot(countsByHour,
+  names.arg=rownames(tab0),
+  xlab="Day of week",
+  ylab="Count")
