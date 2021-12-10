@@ -15,7 +15,14 @@ setwd("/Users/stephan/Documents/code/opendatacam-statistics/input")
 odcCounts <- ldply(list.files(), read.csv, header=FALSE)
 
 # assign meaningful column names
-colnames(odcCounts) <- c("frameId", "timestamp", "counterId", "objectClass", "objectId", "bearing", "direction", "angleWithCountingLine")
+colnames(odcCounts) <- c("frameId",
+  "timestamp",
+  "counterId",
+  "objectClass",
+  "objectId",
+  "bearing",
+  "direction",
+  "angleWithCountingLine")
 
 # cleanup timestamp format using lubridate - check https://lubridate.tidyverse.org for docs
 odcCounts <- mutate(odcCounts,
@@ -27,7 +34,12 @@ odcCounts <- mutate(odcCounts,
   hourOfDay = hour(ymdhms))
 
 # create a subset of the data with only cars, trucks, busses, motorbikes, and bicycles
-odcCountsOnlyVehicles <- subset(odcCounts, objectClass == "bicycle" | objectClass == "bus" | objectClass == "car" | objectClass == "motorbike" | objectClass == "truck" )
+odcCountsOnlyVehicles <- subset(odcCounts,
+  objectClass == "bicycle" |
+  objectClass == "bus" |
+  objectClass == "car" |
+  objectClass == "motorbike" |
+  objectClass == "truck" )
 
 # if you need a data frame with only car observations
 #odcCountsOnlyCars <- subset(odcCounts, objectClass=="car")
