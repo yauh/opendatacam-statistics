@@ -1,5 +1,5 @@
 # opendatacam-statistics
- Simple statistics from OpenDataCam using R
+ Simple statistics from [OpenDataCam](https://github.com/opendatacam/opendatacam) using R
 
 ## Prepare your R
 
