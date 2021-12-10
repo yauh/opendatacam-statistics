@@ -35,4 +35,17 @@ Sample in `csv`:
 
 ## Process data using R
 
-We're going to import the `csv`, transform (well, basically enhance) the data by adding new variables (i.e. columns), and plot the counter statistics into a pretty chart.
+We're going to import the `csv`, transform (well, basically enhance) the data by adding new variables (i.e. columns), and plot the counter statistics into a pretty chart. Use the `scripts/odc-visualize.R` script file in RStudio in order to generate the plots.
+
+### Example for Vehicles/Hour
+
+![Plot for counted vehicles by hour of day](plots/countsByHour.png)
+
+### Example for Vehicles/Hour grouped by objectClass
+
+![Plot for counted vehicles by hour of day broken down into object classes](plots/countsByClass.png)
+
+
+## Help me out
+
+If you know R and have suggestions on prettier plots and graphs, please don't hesitate and send a pull request.
