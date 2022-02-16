@@ -1,17 +1,11 @@
-# if packages are not available, install once by uncommenting these lines
-#install.packages("tidyverse")
-#install.packages("plyr")
-
-# plyr enables reading multple csv files as source
-library(plyr)
-
-# tidayverse allows data cleanup, specifically lubridate
-library(lubridate)
+# load prerequisite libraries
+prereqs<-c("tidyverse", "plyr", "dplyr", "lubridate")
+lapply(prereqs, require, character.only = TRUE)
 
 # adjust this to point to where your data input csv files reside
 setwd("/Users/stephan/Documents/code/opendatacam-statistics/input")
 
-# read all csv files into the dataframe called odcCounts
+# read all csv files  from input/ subir into a dataframe called odcCounts
 odcCounts <- ldply(list.files(), read.csv, header=FALSE)
 
 # assign meaningful column names
@@ -24,7 +18,7 @@ colnames(odcCounts) <- c("frameId",
   "direction",
   "angleWithCountingLine")
 
-# cleanup timestamp format using lubridate - check https://lubridate.tidyverse.org for docs
+# split timestamp data using lubridate - check https://lubridate.tidyverse.org for docs
 odcCounts <- mutate(odcCounts,
   dayOfWeek = wday(timestamp),
   date = date(timestamp),
@@ -36,33 +30,21 @@ odcCounts <- mutate(odcCounts,
   quarter = quarter(timestamp),
   hourOfDay = hour(ymdhms))
 
-# create a subset of the data with only cars, trucks, busses, motorbikes, and bicycles
-odcCountsOnlyVehicles <- subset(odcCounts,
+# print table which objects occured how often - be amazed
+table(odcCounts['objectClass'])
+
+# create a new dataframe limited to typical road users
+odcCountsRoadUsers <- subset(odcCounts,
   objectClass == "bicycle" |
   objectClass == "bus" |
   objectClass == "car" |
   objectClass == "motorbike" |
+  objectClass == "person" |
   objectClass == "truck" )
 
-# if you need a data frame with only car observations
-#odcCountsOnlyCars <- subset(odcCounts, objectClass=="car")
-# if you need a data frame excluding all the cars
-#odcCountsNoCars <- subset(odcCounts, objectClass!="car")
-
-
-# simple first plot
-countsByHour <- table(odcCountsOnlyVehicles$hourOfDay)
-barplot(countsByHour,
-  names.arg=rownames(countsByHour),
-  xlab="Hour of Day",
-  ylab="Count")
-
-# distinguish between object classes as well
-countsByClass <- with(odcCountsOnlyVehicles,table(objectClass,hourOfDay))
-barplot(countsByClass,
-  beside=TRUE,
-  col=c("green","orange","blue","black","red"),
-  xlab="Hour of Day",
-  ylab="Count",
-  legend.text=rownames(countsByClass),
-  args.legend=list(x="topleft"))
+# show distribution of road users
+odcCountsRoadUsers %>%
+  group_by(objectClass) %>%
+  dplyr::summarise(n = n()) %>%
+  mutate(Freq = n/sum(n)) %>%
+  arrange(desc(Freq))
