@@ -42,6 +42,10 @@ odcCountsRoadUsers <- subset(odcCounts,
   objectClass == "person" |
   objectClass == "truck" )
 
+# write all csv data into single file
+write.table(odcCountsRoadUsers, file = "odcCountsRoadUsers.csv",
+             sep = ",", row.names = F, col.names = F)
+
 # show distribution of road users
 odcCountsRoadUsers %>%
   group_by(objectClass) %>%
