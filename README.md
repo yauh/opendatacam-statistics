@@ -35,7 +35,8 @@ Sample in `csv`:
 
 ## Process data using R
 
-We're going to import the `csv`, transform (well, basically enhance) the data by adding new variables (i.e. columns), and plot the counter statistics into a pretty chart. Use the `scripts/odc-visualize.R` script file in RStudio in order to generate the plots.
+We're going to import the `csv`, transform (well, basically enhance) the data by adding new variables (i.e. columns), and plot the counter statistics into a pretty chart. Use the `scripts/odc-process.R` script file in RStudio in order to generate the csv file used for plotting.
+Using `scripts/odc-plot.R` you can import the csv that was produced by the processing script and generate histograms for each day of the week.
 
 ### Example for Vehicles/Hour
 
@@ -43,8 +44,7 @@ We're going to import the `csv`, transform (well, basically enhance) the data by
 
 ### Example for Vehicles/Hour grouped by objectClass
 
-![Plot for counted vehicles by hour of day broken down into object classes](plots/countsByClass.png)
-
+![Plot for counted vehicles by hour of day broken down into object classes](plots/histDaily.png)
 
 ## Help me out
 
