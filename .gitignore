@@ -37,3 +37,4 @@ rsconnect/
 
 .DS_Store
 input/odcCountsRoadUsers.csv
+input/*.png
